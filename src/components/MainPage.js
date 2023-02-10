@@ -20,7 +20,7 @@ const MainPage = () => {
 				</address>
 				<br />
 			</main>
-			<fotter></fotter>
+			<footer></footer>
 		</section>
 	);
 
