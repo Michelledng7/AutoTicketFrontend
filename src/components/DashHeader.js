@@ -5,7 +5,7 @@ const DashHeader = () => {
 	const content = (
 		<header>
 			<div>
-				<Link to='dash/ticket'>
+				<Link to='dash'>
 					<h1>Tech Ticket system</h1>
 				</Link>
 				<nav>{/*navigation button placeholder */}</nav>
