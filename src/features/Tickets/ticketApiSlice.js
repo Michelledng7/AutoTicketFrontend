@@ -34,6 +34,7 @@ export const { useGetTicketsQuery } = ticketsApiSlice;
 
 export const selectTicketsResult =
 	ticketsApiSlice.endpoints.getTickets.select();
+
 //create memoized selectors
 const selectTicketsData = createSelector(
 	selectTicketsResult,
@@ -42,7 +43,7 @@ const selectTicketsData = createSelector(
 
 //getSelectors creates these slectors
 export const {
-	selectAll: selectAlltickets,
+	selectAll: selectAllTickets,
 	selectById: selectTicketById,
 	selectIds: selectTicketIds,
 } = ticketsAdapter.getSelectors(
