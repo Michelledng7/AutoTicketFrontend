@@ -28,9 +28,9 @@ const Ticket = ({ ticketId }) => {
 					)}
 				</td>
 				<td className='table__cell ticket__created'>{created}</td>
-				<td>{updated}</td>
-				<td>{ticket.title}</td>
-				<td>{ticket.username}</td>
+				<td className='table__cell ticket__updated'>{updated}</td>
+				<td className='table__cell'>{ticket.title}</td>
+				<td className='table__cell ticket__username'>{ticket.username}</td>
 
 				<td className='table__cell'>
 					<button onClick={handleEdit}>
