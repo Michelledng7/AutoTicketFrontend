@@ -13,9 +13,7 @@ const UserList = () => {
 		const { ids } = data;
 		console.log(ids);
 		const tableContent = ids?.length
-			? ids.map((userId) => {
-					<User key={userId} userId={userId} />;
-			  })
+			? ids.map((userId) => <User key={userId} userId={userId} />)
 			: null;
 		content = (
 			<table className='table table--users'>
@@ -32,7 +30,7 @@ const UserList = () => {
 						</th>
 					</tr>
 				</thead>
-				<tbody>tc{tableContent}</tbody>
+				<tbody>{tableContent}</tbody>
 			</table>
 		);
 	}

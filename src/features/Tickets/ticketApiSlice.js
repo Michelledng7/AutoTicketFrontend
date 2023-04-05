@@ -13,7 +13,7 @@ export const ticketsApiSlice = apiSlice.injectEndpoints({
 			},
 			transformResponse: (responseData) => {
 				const ticketsData = responseData.map((item) => {
-					ticket.id = item._id;
+					item.id = item._id;
 					return item;
 				});
 				return ticketsAdapter.setAll(initialState, ticketsData);

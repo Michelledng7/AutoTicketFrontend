@@ -31,8 +31,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
 });
 
 export const { useGetUsersQuery } = usersApiSlice;
-
+//return query result object
 export const selectUsersResult = usersApiSlice.endpoints.getUsers.select();
+
 //create memoized selectors
 const selectUsersData = createSelector(
 	selectUsersResult,
