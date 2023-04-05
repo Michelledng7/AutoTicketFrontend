@@ -17,7 +17,7 @@
 	--INACTIVE: lightgray;
 	--LINK-COLOR: whitesmoke;
 	--LINK-HOVER: rgba(245, 245, 245, 0.9);
-	--NOTE-BGCOLOR: hsla(240, 64%, 27%, 0.65);
+	--TICKET-BGCOLOR: hsla(240, 64%, 27%, 0.65);
 	--STATUS-COMPLETE: limegreen;
 	--STATUS-OPEN: firebrick;
 	--TABLE-BGCOLOR: #fff;
@@ -224,23 +224,23 @@ tr {
 	background-color: var(--INACTIVE);
 }
 
-/* ||  NOTE */
+/* ||  TICKET */
 
-.note__created,
-.note__updated,
-.note__username {
+.ticket__created,
+.ticket__updated,
+.ticket__username {
 	display: none;
 }
 
-.note__status {
+.ticket__status {
 	font-weight: bold;
 }
 
-.note__status--open {
+.ticket__status--open {
 	color: var(--STATUS-OPEN);
 }
 
-.note__status--completed {
+.ticket__status--completed {
 	color: var(--STATUS-COMPLETE);
 }
 
@@ -350,13 +350,13 @@ tr {
 		font-size: 1.5rem;
 	}
 
-	.table--notes {
+	.table--tickets {
 		grid-template-columns: repeat(3, 1fr) 2fr repeat(2, 1fr);
 	}
 
-	.note__created,
-	.note__updated,
-	.note__username {
+	.ticket__created,
+	.ticket__updated,
+	.ticket__username {
 		display: block;
 	}
 
