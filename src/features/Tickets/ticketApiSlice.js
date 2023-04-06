@@ -30,6 +30,8 @@ export const ticketsApiSlice = apiSlice.injectEndpoints({
 				} else return [{ type: 'Ticket', id: 'LIST' }];
 			},
 		}),
+		//addNewTicket: builder.mutation({
+		//query: initialTicket =>
 	}),
 });
 
