@@ -11,8 +11,10 @@ const TicketList = () => {
 	} = useGetTicketsQuery();
 
 	let content;
-	if (isLoading) content = <p>Loading ...</p>;
-	if (isError) content = <p className={'errmsg'}>{error?.data?.message}</p>;
+	if (isLoading)
+		content = <p>Loading ...</p>;
+	if (isError)
+		content = <p className={'errmsg'}>{error?.data?.message}</p>;
 	
 	if (isSuccess) {
 		const { ids } = tickets;
