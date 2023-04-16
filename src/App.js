@@ -6,6 +6,10 @@ import DashLayout from './components/DashLayout';
 import Welcome from './features/auth/Welcome';
 import TicketList from './features/Tickets/TicketList';
 import UserList from './features/users/UserList';
+import EditUser from './features/users/EditUser';
+import NewUserForm from './features/users/NewUserForm';
+import EditTicket from './features/Tickets/EditTicket';
+import NewTicketForm from './features/Tickets/NewTicketForm';
 
 function App() {
 	return (
@@ -18,9 +22,13 @@ function App() {
 					<Route index element={<Welcome />} />
 					<Route path='tickets'>
 						<Route index element={<TicketList />} />
+						<Route path=':id' element={<EditTicket />} />
+						<Route path='new' element={<NewTicketForm />} />
 					</Route>
 					<Route path='users'>
 						<Route index element={<UserList />} />
+						<Route path=':id' element={<EditUser />} />
+						<Route path='new' element={<NewUserForm />} />
 					</Route>
 				</Route>
 				/*End of Protected Routes*/
