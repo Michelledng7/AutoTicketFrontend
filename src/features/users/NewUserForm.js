@@ -20,15 +20,17 @@ const NewUserForm = () => {
 	const [validPassword, setValidPassword] = useState();
 	const [roles, setRoles] = useState(['Employee']);
 
-	//validate username, pwd
+	//validate username
 	useEffect(() => {
 		setValidUsername(USER_REGEX.test(username));
 	}, [username]);
 
+	//validate password
 	useEffect(() => {
 		setValidPassword(PWD_REGEX.test(password));
 	}, [password]);
 
+	//check isSuccess status, need to set to empty and navigate to users page
 	useEffect(() => {
 		if (isSuccess) {
 			setUsername('');
@@ -37,6 +39,34 @@ const NewUserForm = () => {
 			navigate('/dash/users');
 		}
 	}, [isSuccess, navigate]);
+
+	const onUsernameChanged = (e) => setUsername(e.target.value);
+	const onPasswordChanged = (e) => setPassword(e.target.value);
+
+	const onRolesChanged = (e) => {
+		const values = Array.from(
+			e.target.selectedOptions,
+			(option) => option.value
+		);
+		setRoles(values);
+	};
+
+	const canSave =
+		[roles.length, validUsername, validPassword].every(Boolean) && !isLoading;
+	const onSaveUserClicked = async (e) => {
+		e.preventDafault();
+		if (canSave) {
+			await addNewUser({ username, password, roles });
+		}
+	};
+
+	const options = Object.values(ROLES).map((role) => {
+		return (
+			<option key={role} value={role}>
+				{role}
+			</option>
+		);
+	});
 
 	return <div>NewUserForm</div>;
 };
