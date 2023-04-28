@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { ROLES } from '../../config/roles';
+import { isContentEditable } from '@testing-library/user-event/dist/utils';
 
 //regex for validation
 const USER_REGEX = /^[A-z]{3,20}$/;
@@ -68,7 +69,34 @@ const NewUserForm = () => {
 		);
 	});
 
-	return <div>NewUserForm</div>;
+	const errClass = isError ? 'errmsg' : 'offscreen';
+	const validUserClass = !validUsername ? 'form__input--incomplete' : '';
+	const validPwdClass = !validPassword ? 'form__iput--incomplete' : '';
+	const validRolesClass = !Boolean(roles.length)
+		? 'form__input--incomplete'
+		: '';
+	
+	const content = (
+		<>
+			<p className={errClass}>{error?.data?.message}</p>
+			<form className='form' onSubmit={onSaveUserClicked}>
+				<div className='form__title-row'>
+					<h2>New User</h2>
+					<div className='form__action-buttons' >
+						<button className = 'icon-button' title = 'Save' disabled = {!canSave}>
+							<FontAwesomeIcon icon={faSave} />
+						</button>
+					</div>
+				
+				</div>
+			
+			</form>
+		</>
+		
+	)
+	
+	return content
+
 };
 
 export default NewUserForm;
