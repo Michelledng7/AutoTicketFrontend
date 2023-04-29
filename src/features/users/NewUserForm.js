@@ -75,28 +75,63 @@ const NewUserForm = () => {
 	const validRolesClass = !Boolean(roles.length)
 		? 'form__input--incomplete'
 		: '';
-	
+
 	const content = (
 		<>
 			<p className={errClass}>{error?.data?.message}</p>
 			<form className='form' onSubmit={onSaveUserClicked}>
 				<div className='form__title-row'>
 					<h2>New User</h2>
-					<div className='form__action-buttons' >
-						<button className = 'icon-button' title = 'Save' disabled = {!canSave}>
+					<div className='form__action-buttons'>
+						<button className='icon-button' title='Save' disabled={!canSave}>
 							<FontAwesomeIcon icon={faSave} />
 						</button>
 					</div>
-				
 				</div>
-			
+				<label className='form_label' htmlFor='username'>
+					Username: <span className='nowrap'> [8-20 letters]</span>
+				</label>
+				<input
+					className={`form__input ${validUserClass}`}
+					id='username'
+					name='username'
+					type='text'
+					autoComplete='off'
+					value={username}
+					onChange={onUsernameChanged}
+				/>
+
+				<label className='form__label' htmlFor='password'>
+					Password: <span>[8-20 chars including !@#$]</span>
+				</label>
+				<input
+					className={`form__input ${validPwdClass}`}
+					id='password'
+					name='password'
+					type='password'
+					value={password}
+					onChange={onPasswordChanged}
+				/>
+
+				<label className='form__label' htmlFor='roles'>
+					Assigned Roles:
+				</label>
+				<select
+					id='roles'
+					name='roles'
+					className={`form__select ${validRolesClass}`}
+					multiple={true}
+					size='3'
+					value={roles}
+					onChange={onRolesChanged}
+				>
+					{options}
+				</select>
 			</form>
 		</>
-		
-	)
-	
-	return content
+	);
 
+	return content;
 };
 
 export default NewUserForm;
