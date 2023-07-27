@@ -100,7 +100,6 @@ const NewUserForm = () => {
 					value={username}
 					onChange={onUsernameChanged}
 				/>
-
 				<label className='form__label' htmlFor='password'>
 					Password: <span>[8-20 chars including !@#$]</span>
 				</label>
@@ -112,7 +111,6 @@ const NewUserForm = () => {
 					value={password}
 					onChange={onPasswordChanged}
 				/>
-
 				<label className='form__label' htmlFor='roles'>
 					Assigned Roles:
 				</label>
