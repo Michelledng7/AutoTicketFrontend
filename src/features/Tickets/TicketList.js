@@ -8,14 +8,16 @@ const TicketList = () => {
 		isLoading,
 		isError,
 		error,
-	} = useGetTicketsQuery();
+	} = useGetTicketsQuery(null, {
+		pollingInterval: 15000,
+		refetchOnFocus: true,
+		refetchOnMountOrArgChange: true,
+	});
 
 	let content;
-	if (isLoading)
-		content = <p>Loading ...</p>;
-	if (isError)
-		content = <p className={'errmsg'}>{error?.data?.message}</p>;
-	
+	if (isLoading) content = <p>Loading ...</p>;
+	if (isError) content = <p className={'errmsg'}>{error?.data?.message}</p>;
+
 	if (isSuccess) {
 		const { ids } = tickets;
 

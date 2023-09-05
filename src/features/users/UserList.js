@@ -3,7 +3,14 @@ import { selectAllUsers, selectById, selectIds } from './usersApiSlice';
 import User from './User';
 
 const UserList = () => {
-	const { data, error, isLoading, isSuccess, isError } = useGetUsersQuery();
+	const { data, error, isLoading, isSuccess, isError } = useGetUsersQuery(
+		null,
+		{
+			pollingInterval: 60000,
+			refetchOnFocus: true,
+			refetchOnMountOrArgChange: true,
+		}
+	);
 	console.log(data);
 
 	let content;

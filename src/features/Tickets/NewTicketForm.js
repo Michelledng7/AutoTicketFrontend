@@ -1,5 +1,3 @@
-
-
 const NewTicketForm = () => {
 	return <div>NewTicketForm</div>;
 };

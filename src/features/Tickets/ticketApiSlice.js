@@ -46,7 +46,7 @@ export const ticketsApiSlice = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: (result, error, arg) => [{ type: 'TICKET', id: arg.id }],
 		}),
-		detleteTicket: builder.mutation({
+		deleteTicket: builder.mutation({
 			query: (ticketId) => ({
 				url: `/tickets/${ticketId}`,
 				method: 'DELETE',
@@ -57,7 +57,12 @@ export const ticketsApiSlice = apiSlice.injectEndpoints({
 	}),
 });
 
-export const { useGetTicketsQuery, useAddNewTicketMutation, useUpdateTicketMutation, useDetleteTicketMutation } = ticketsApiSlice;
+export const {
+	useGetTicketsQuery,
+	useAddNewTicketMutation,
+	useUpdateTicketMutation,
+	useDeleteTicketMutation,
+} = ticketsApiSlice;
 
 export const selectTicketsResult =
 	ticketsApiSlice.endpoints.getTickets.select();
