@@ -5,8 +5,9 @@ import { selectAllUsers } from '../users/usersApiSlice';
 import EditTicketForm from './EditTicketForm';
 
 const EditTicket = () => {
-	const { ticketId } = useParams();
-	const ticket = useSelector((state) => selectTicketById(state, ticketId));
+	const { id } = useParams();
+	console.log(id);
+	const ticket = useSelector((state) => selectTicketById(state, id));
 	const users = useSelector(selectAllUsers);
 	const content =
 		ticket && users ? (

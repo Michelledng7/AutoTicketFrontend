@@ -11,6 +11,7 @@ const Prefetch = () => {
 			ticketsApiSlice.endpoints.getTickets.initiate()
 		);
 		const users = store.dispatch(usersApiSlice.endpoints.getUsers.initiate());
+
 		return () => {
 			console.log('Unsubscribing');
 			tickets.unsubscribe();

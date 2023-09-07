@@ -180,7 +180,7 @@ const EditTicketForm = ({ ticket, users }) => {
 				</div>
 			</div>
 		</form>
-    );
-    return content
+	);
+	return content;
 };
 export default EditTicketForm;
