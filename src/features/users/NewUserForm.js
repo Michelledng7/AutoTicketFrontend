@@ -52,15 +52,15 @@ const NewUserForm = () => {
 		setRoles(values);
 	};
 
-	// const canSave =
-	// 	[roles.length, validUsername, validPassword].every(Boolean) && !isLoading;
+	const canSave =
+		[roles.length, validUsername, validPassword].every(Boolean) && !isLoading;
 
 	const onSaveUserClicked = async (e) => {
 		e.preventDefault();
-		//if (canSave) {
-		console.log(username);
-		await addNewUser({ username, password, roles });
-		//}
+		if (canSave) {
+			console.log(username);
+			await addNewUser({ username, password, roles });
+		}
 	};
 
 	const options = Object.values(ROLES).map((role) => {
@@ -79,53 +79,56 @@ const NewUserForm = () => {
 		: '';
 
 	const content = (
-		<form className='form' onSubmit={onSaveUserClicked}>
-			<div className='form__title-row'>
-				<h2>New User</h2>
-				<div className='form__action-buttons'>
-					<button className='icon-button' title='Save'>
-						<FontAwesomeIcon icon={faSave} />
-					</button>
+		<>
+			<p className={errClass}>{error?.data?.message}</p>
+			<form className='form' onSubmit={onSaveUserClicked}>
+				<div className='form__title-row'>
+					<h2>New User</h2>
+					<div className='form__action-buttons'>
+						<button className='icon-button' title='Save' disabled={!canSave}>
+							<FontAwesomeIcon icon={faSave} />
+						</button>
+					</div>
 				</div>
-			</div>
-			<label className='form__label' htmlFor='username'>
-				Username: <span className='nowrap'> [3-20 letters]</span>
-			</label>
-			<input
-				className={`form__input ${validUserClass}`}
-				id='username'
-				name='username'
-				type='text'
-				autoComplete='off'
-				value={username}
-				onChange={onUsernameChanged}
-			/>
-			<label className='form__label' htmlFor='password'>
-				Password: <span className='nowrap'>[4-12 chars including !@#$]</span>
-			</label>
-			<input
-				className={`form__input ${validPwdClass}`}
-				id='password'
-				name='password'
-				type='password'
-				value={password}
-				onChange={onPasswordChanged}
-			/>
-			<label className='form__label' htmlFor='roles'>
-				Assigned Roles:
-			</label>
-			<select
-				id='roles'
-				name='roles'
-				className={`form__select ${validRolesClass}`}
-				multiple={true}
-				size='3'
-				value={roles}
-				onChange={onRolesChanged}
-			>
-				{options}
-			</select>
-		</form>
+				<label className='form__label' htmlFor='username'>
+					Username: <span className='nowrap'> [3-20 letters]</span>
+				</label>
+				<input
+					className={`form__input ${validUserClass}`}
+					id='username'
+					name='username'
+					type='text'
+					autoComplete='off'
+					value={username}
+					onChange={onUsernameChanged}
+				/>
+				<label className='form__label' htmlFor='password'>
+					Password: <span className='nowrap'>[4-12 chars including !@#$]</span>
+				</label>
+				<input
+					className={`form__input ${validPwdClass}`}
+					id='password'
+					name='password'
+					type='password'
+					value={password}
+					onChange={onPasswordChanged}
+				/>
+				<label className='form__label' htmlFor='roles'>
+					Assigned Roles:
+				</label>
+				<select
+					id='roles'
+					name='roles'
+					className={`form__select ${validRolesClass}`}
+					multiple={true}
+					size='3'
+					value={roles}
+					onChange={onRolesChanged}
+				>
+					{options}
+				</select>
+			</form>
+		</>
 	);
 
 	return content;
