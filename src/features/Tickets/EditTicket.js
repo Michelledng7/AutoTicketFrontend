@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectTicketById } from './ticketApiSlice';
+import { selectTicketById } from './ticketsApiSlice';
 import { selectAllUsers } from '../users/usersApiSlice';
 import EditTicketForm from './EditTicketForm';
 

@@ -1,4 +1,4 @@
-import { useGetTicketsQuery } from './ticketApiSlice';
+import { useGetTicketsQuery } from './ticketsApiSlice';
 import Ticket from './Ticket';
 
 const TicketList = () => {
