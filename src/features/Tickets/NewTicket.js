@@ -4,7 +4,10 @@ import NewTicketForm from './NewTicketForm';
 
 const NewTicket = () => {
 	const users = useSelector(selectAllUsers);
-	const content = users ? <NewTicketForm users={users} /> : <p> Loading...</p>;
+
+	if (!users?.length) return <p>Not Currently Available</p>;
+	const content = <NewTicketForm users={users} />;
+
 	return content;
 };
 

@@ -4,7 +4,7 @@ import User from './User';
 
 const UserList = () => {
 	const { data, error, isLoading, isSuccess, isError } = useGetUsersQuery(
-		null,
+		undefined,
 		{
 			pollingInterval: 60000,
 			refetchOnFocus: true,

@@ -9,8 +9,8 @@ import UserList from './features/users/UserList';
 import EditUser from './features/users/EditUser';
 import NewUserForm from './features/users/NewUserForm';
 import EditTicket from './features/Tickets/EditTicket';
-import NewTicketForm from './features/Tickets/NewTicketForm';
 import Prefetch from './features/auth/Prefetch';
+import NewTicket from './features/Tickets/NewTicket';
 
 function App() {
 	return (
@@ -25,7 +25,7 @@ function App() {
 						<Route path='tickets'>
 							<Route index element={<TicketList />} />
 							<Route path=':id' element={<EditTicket />} />
-							<Route path='new' element={<NewTicketForm />} />
+							<Route path='new' element={<NewTicket />} />
 						</Route>
 						<Route path='users'>
 							<Route index element={<UserList />} />

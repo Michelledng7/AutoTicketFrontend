@@ -81,7 +81,7 @@ const selectUsersData = createSelector(
 	(usersResult) => usersResult.data //data is normalized state object with ids and entities
 );
 
-//getSelectors creates these slectors
+//getSelectors creates these selectors
 export const {
 	selectAll: selectAllUsers,
 	selectById: selectUserById,
