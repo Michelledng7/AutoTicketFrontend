@@ -20,7 +20,7 @@ function App() {
 				<Route path='login' element={<Login />} />
 				/*Protected Routes*/
 				<Route element={<Prefetch />}>
-					<Route path='dash' element={<DashLayout />}>
+					<Route path='auth' element={<DashLayout />}>
 						<Route index element={<Welcome />} />
 						<Route path='tickets'>
 							<Route index element={<TicketList />} />
