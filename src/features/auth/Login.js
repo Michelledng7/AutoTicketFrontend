@@ -42,18 +42,9 @@ const Login = () => {
 			//errRef.current.focus();
 		}
 	};
-	// useEffect(() => {
-	// 	userRef.current.focus();
-	// }, []);
-
-	// useEffect(() => {
-	// 	if (isError) {
-	// 		setErrMsg('Login Failed');
-	// 		setUsername('');
-	// 		setPassword('');
-	// 		navigate('/');
-	// 	}
-	// }, [isError, navigate]);
+	useEffect(() => {
+		userRef.current.focus();
+	}, []);
 
 	if (isLoading) return <p>Loading ...</p>;
 
