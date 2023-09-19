@@ -11,6 +11,7 @@ import NewUserForm from './features/users/NewUserForm';
 import EditTicket from './features/Tickets/EditTicket';
 import Prefetch from './features/auth/Prefetch';
 import NewTicket from './features/Tickets/NewTicket';
+import Persistlogin from './features/auth/Persistlogin';
 
 function App() {
 	return (
@@ -19,18 +20,20 @@ function App() {
 				<Route index element={<MainPage />} />
 				<Route path='login' element={<Login />} />
 				/*Protected Routes*/
-				<Route element={<Prefetch />}>
-					<Route path='dash' element={<DashLayout />}>
-						<Route index element={<Welcome />} />
-						<Route path='tickets'>
-							<Route index element={<TicketList />} />
-							<Route path=':id' element={<EditTicket />} />
-							<Route path='new' element={<NewTicket />} />
-						</Route>
-						<Route path='users'>
-							<Route index element={<UserList />} />
-							<Route path=':id' element={<EditUser />} />
-							<Route path='new' element={<NewUserForm />} />
+				<Route element={<Persistlogin />}>
+					<Route element={<Prefetch />}>
+						<Route path='dash' element={<DashLayout />}>
+							<Route index element={<Welcome />} />
+							<Route path='tickets'>
+								<Route index element={<TicketList />} />
+								<Route path=':id' element={<EditTicket />} />
+								<Route path='new' element={<NewTicket />} />
+							</Route>
+							<Route path='users'>
+								<Route index element={<UserList />} />
+								<Route path=':id' element={<EditUser />} />
+								<Route path='new' element={<NewUserForm />} />
+							</Route>
 						</Route>
 					</Route>
 				</Route>
