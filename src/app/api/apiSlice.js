@@ -27,9 +27,11 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 		const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
 		if (refreshResult?.data) {
 			//store the new token
+			console.log(refreshResult.data);
 			api.dispatch(setCredentials({ ...refreshResult.data }));
 			//retry the original request with the new token
 			result = await baseQuery(args, api, extraOptions);
+			console.log(result);
 		} else {
 			if (refreshResult?.error?.status === 403) {
 				//if refresh token is expired, logout
