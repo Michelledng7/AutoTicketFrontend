@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode';
 
 const useAuth = () => {
 	const token = useSelector(selectCurrentToken);
+	console.log(token);
 	let isManager = false;
 	let isAdmin = false;
 	let status = 'Employee';

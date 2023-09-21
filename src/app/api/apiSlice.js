@@ -6,6 +6,7 @@ const baseQuery = fetchBaseQuery({
 	credentials: 'include',
 	prepareHeaders: (headers, { getState }) => {
 		const token = getState().auth.token;
+		console.log(token);
 		if (token) {
 			//set headers to be 'Bearer token'
 			headers.set('authorization', `Bearer ${token}`);
@@ -40,11 +41,12 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 			return refreshResult;
 		}
 	}
+	console.log(result);
 	return result;
 };
 
 export const apiSlice = createApi({
 	baseQuery: baseQueryWithReAuth,
-	tagTypes: ['User', 'Ticket'], //invalidate the cache
+	tagTypes: ['Ticket', 'User'], //invalidate the cache
 	endpoints: (builder) => ({}),
 });
