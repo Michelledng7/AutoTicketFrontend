@@ -12,7 +12,7 @@
 	/* COLORS */
 	--BGCOLOR: steelblue;
 	--BORDER-COLOR: #fff;
-	--COLOR: #fff;
+	--COLOR: black;
 	--ERROR: firebrick;
 	--INACTIVE: lightgray;
 	--LINK-COLOR: whitesmoke;
@@ -58,7 +58,7 @@
 }
 
 .icon-button[disabled] {
-	visibility: hidden;
+	visibility: visible;
 }
 
 /* || GENERAL STYLES */
