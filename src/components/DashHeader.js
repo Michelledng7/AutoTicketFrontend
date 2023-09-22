@@ -17,7 +17,8 @@ const TICKETS_REGEX = /^\/dash\/tickets(\/)?$/;
 const USERS_REGEX = /^\/dash\/users(\/)?$/;
 
 const DashHeader = () => {
-	const [logout, { isSuccess, isLoading }] = useToSendLogoutMutation();
+	const [logout, { isSuccess, isError, isLoading, error }] =
+		useToSendLogoutMutation();
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 	const { isManager, isAdmin } = useAuth();
@@ -26,7 +27,7 @@ const DashHeader = () => {
 		if (isSuccess) navigate('/');
 	}, [isSuccess, navigate]);
 
-	const onNewTicketClicked = () => navigate('/tickets/new');
+	const onNewTicketClicked = () => navigate('/dash/tickets/new');
 	const onNewUserClicked = () => navigate('/dash/users/new');
 	const onTicketsClicked = () => navigate('/dash/tickets');
 	const onUsersClicked = () => navigate('/dash/users');
@@ -42,6 +43,7 @@ const DashHeader = () => {
 
 	let newTicketButton = null;
 	if (TICKETS_REGEX.test(pathname)) {
+		console.log(pathname);
 		newTicketButton = (
 			<button
 				className='icon-button'
@@ -55,6 +57,7 @@ const DashHeader = () => {
 
 	let newUserButton = null;
 	if (USERS_REGEX.test(pathname)) {
+		console.log(pathname);
 		newUserButton = (
 			<button
 				className='icon-button'
@@ -68,7 +71,8 @@ const DashHeader = () => {
 
 	let usersButton = null;
 	if (isManager || isAdmin) {
-		if (USERS_REGEX.test(pathname)) {
+		if (USERS_REGEX.test(pathname) && pathname.includes('/dash')) {
+			console.log(pathname);
 			usersButton = (
 				<button
 					className='icon-button'
@@ -83,6 +87,7 @@ const DashHeader = () => {
 
 	let ticketsButton = null;
 	if (TICKETS_REGEX.test(pathname) && pathname.includes('/dash')) {
+		console.log(pathname);
 		ticketsButton = (
 			<button
 				className='icon-button'
@@ -98,6 +103,8 @@ const DashHeader = () => {
 			<FontAwesomeIcon icon={faRightFromBracket} />
 		</button>
 	);
+
+	const errClass = isError ? 'errmsg' : 'offscreen';
 
 	let buttonContent;
 	if (isLoading) {
@@ -115,14 +122,18 @@ const DashHeader = () => {
 	}
 
 	const content = (
-		<header>
-			<div>
-				<Link to='dash'>
-					<h1>Tech Ticket system</h1>
-				</Link>
-				<nav>{buttonContent}</nav>
-			</div>
-		</header>
+		<>
+			<p className={errClass}>{error?.data?.message}</p>
+
+			<header className='dash-header'>
+				<div className={`dash-header__container ${dashClass}`}>
+					<Link to='dash'>
+						<h1>Tech Ticket system</h1>
+					</Link>
+					<nav className='dash-header__title'>{buttonContent}</nav>
+				</div>
+			</header>
+		</>
 	);
 	return content;
 };
