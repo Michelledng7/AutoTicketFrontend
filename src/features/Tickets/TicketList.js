@@ -1,7 +1,9 @@
-import { useGetTicketsQuery } from './ticketsApiSlice';
-import Ticket from './Ticket';
+import { useGetTicketsQuery } from './ticketsApiSlice'
+import Ticket from './Ticket'
+import useAuth from '../../hooks/useAuth'
 
 const TicketList = () => {
+	const { username, isManager, isAdmin } = useAuth()
 	const {
 		data: tickets,
 		isSuccess,
@@ -12,18 +14,27 @@ const TicketList = () => {
 		pollingInterval: 15000,
 		refetchOnFocus: true,
 		refetchOnMountOrArgChange: true,
-	});
-
-	let content;
-	if (isLoading) content = <p>Loading ...</p>;
-	if (isError) content = <p className={'errmsg'}>{error?.data?.message}</p>;
-
+	})
+	let content
 	if (isSuccess) {
-		const { ids } = tickets;
+		const { ids, entities } = tickets
 
-		const tableContent = ids?.length
-			? ids.map((ticketId) => <Ticket key={ticketId} ticketId={ticketId} />)
-			: null;
+		console.log(tickets)
+		//apply the useAuth hook to filter the users
+
+		let filteredIds //ticket id
+		if (isManager || isAdmin) {
+			filteredIds = [...ids]
+			console.log(filteredIds)
+		} else {
+			filteredIds = ids.filter(noteId => entities[noteId].username === username)
+		}
+
+		console.log(filteredIds)
+
+		const tableContent =
+			ids?.length &&
+			filteredIds.map(ticketId => <Ticket key={ticketId} ticketId={ticketId} />)
 
 		content = (
 			<table className='table table--tickets'>
@@ -51,9 +62,9 @@ const TicketList = () => {
 				</thead>
 				<tbody>{tableContent}</tbody>
 			</table>
-		);
+		)
 	}
-	return content;
-};
+	return content
+}
 
-export default TicketList;
+export default TicketList

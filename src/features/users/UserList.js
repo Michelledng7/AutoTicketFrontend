@@ -1,27 +1,30 @@
 import { useGetUsersQuery } from './usersApiSlice';
-import { selectAllUsers, selectById, selectIds } from './usersApiSlice';
 import User from './User';
 
 const UserList = () => {
-	const { data, error, isLoading, isSuccess, isError } = useGetUsersQuery(
-		'userList',
-		{
-			pollingInterval: 60000,
-			refetchOnFocus: true,
-			refetchOnMountOrArgChange: true,
-		}
-	);
-	console.log(data);
+	const {
+		data: users,
+		error,
+		isLoading,
+		isSuccess,
+		isError,
+	} = useGetUsersQuery('userList', {
+		pollingInterval: 60000,
+		refetchOnFocus: true,
+		refetchOnMountOrArgChange: true,
+	});
+	console.log(users);
 
 	let content;
 	if (isLoading) content = <h1>Loading...</h1>;
 	if (isError) content = <p> Error:{error.data.message} </p>;
 	if (isSuccess) {
-		const { ids } = data;
+		const { ids, entities } = users;
+		console.log(entities);
 		console.log(ids);
-		const tableContent = ids?.length
-			? ids.map((userId) => <User key={userId} userId={userId} />)
-			: null;
+		const tableContent =
+			ids?.length && ids.map((userId) => <User key={userId} userId={userId} />);
+
 		content = (
 			<table className='table table--users'>
 				<thead className='table__thead'>
@@ -40,8 +43,9 @@ const UserList = () => {
 				<tbody>{tableContent}</tbody>
 			</table>
 		);
+
+		return content;
 	}
-	return content;
 };
 
 export default UserList;
