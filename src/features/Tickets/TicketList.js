@@ -27,7 +27,9 @@ const TicketList = () => {
 			filteredIds = [...ids]
 			console.log(filteredIds)
 		} else {
-			filteredIds = ids.filter(noteId => entities[noteId].username === username)
+			//console.log(ids.map(ticketId => entities[ticketId].user))
+			// filteredIds = ids.filter(
+			// 	ticketId => entities[ticketId].username === username)
 		}
 
 		console.log(filteredIds)
