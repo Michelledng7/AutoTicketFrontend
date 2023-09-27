@@ -18,7 +18,6 @@ const TicketList = () => {
 	let content
 	if (isSuccess) {
 		const { ids, entities } = tickets
-
 		console.log(tickets)
 		//apply the useAuth hook to filter the users
 
@@ -28,8 +27,9 @@ const TicketList = () => {
 			console.log(filteredIds)
 		} else {
 			//console.log(ids.map(ticketId => entities[ticketId].user))
-			// filteredIds = ids.filter(
-			// 	ticketId => entities[ticketId].username === username)
+			filteredIds = ids.filter(
+				ticketId => entities[ticketId].username === username
+			)
 		}
 
 		console.log(filteredIds)
