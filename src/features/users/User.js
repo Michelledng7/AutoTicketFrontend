@@ -1,20 +1,25 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPen, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
+import { useGetUsersQuery } from './usersApiSlice'
 
-import { useSelector } from 'react-redux';
-import { selectUserById } from './usersApiSlice';
+import { useSelector } from 'react-redux'
+import { selectUserById } from './usersApiSlice'
 
 const User = ({ userId }) => {
-	const user = useSelector((state) => selectUserById(state, userId));
-	console.log(userId);
-	console.log(user);
-	const navigate = useNavigate();
+	//const user = useSelector((state) => selectUserById(state, userId));
+	console.log(userId)
+	const { user } = useGetUsersQuery('userList', {
+		selectFromResult: ({ data }) => ({
+			user: data?.entities[userId],
+		}),
+	})
+	console.log(user)
+	const navigate = useNavigate()
 	if (user) {
-		console.log('user' + user);
-		const handleEdit = () => navigate(`/dash/users/${userId}`);
-		const userRolesString = user.roles.toString().replaceAll(',', ', ');
-		const cellStatus = user.active ? '' : 'table_cell--inactive';
+		const handleEdit = () => navigate(`/dash/users/${userId}`)
+		const userRolesString = user.roles.toString().replaceAll(',', ', ')
+		const cellStatus = user.active ? '' : 'table_cell--inactive'
 		return (
 			<tr className='table_row user'>
 				<td className={`table__cell ${cellStatus}`}>{user.username}</td>
@@ -25,8 +30,8 @@ const User = ({ userId }) => {
 					</button>
 				</td>
 			</tr>
-		);
-	} else return null;
-};
+		)
+	} else return null
+}
 
-export default User;
+export default User
