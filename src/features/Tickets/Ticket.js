@@ -1,23 +1,31 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom'
+import { useGetTicketsQuery } from './ticketsApiSlice'
 
-import { useSelector } from 'react-redux';
-import { selectTicketById } from './ticketsApiSlice';
+import { useSelector } from 'react-redux'
+import { selectTicketById } from './ticketsApiSlice'
 
 const Ticket = ({ ticketId }) => {
-	const ticket = useSelector((state) => selectTicketById(state, ticketId));
-	const navigate = useNavigate();
+	//const ticket = useSelector(state => selectTicketById(state, ticketId))
+	const { ticket } = useGetTicketsQuery('ticketList', {
+		selectFromResult: ({ data }) => ({
+			ticket: data.entities[ticketId],
+		}),
+	})
+	console.log(ticketId)
+	console.log(ticket)
+	const navigate = useNavigate()
 	if (ticket) {
 		const created = new Date(ticket.createdAt).toLocaleString('en-US', {
 			day: 'numeric',
 			month: 'long',
-		});
+		})
 		const updated = new Date(ticket.updatedAt).toLocaleString('en-US', {
 			day: 'numeric',
 			month: 'long',
-		});
-		const handleEdit = () => navigate(`/dash/tickets/${ticketId}`);
+		})
+		const handleEdit = () => navigate(`/dash/tickets/${ticketId}`)
 		return (
 			<tr className='table__row'>
 				<td className='table__cell ticket__status'>
@@ -38,8 +46,8 @@ const Ticket = ({ ticketId }) => {
 					</button>
 				</td>
 			</tr>
-		);
-	} else return null;
-};
+		)
+	} else return null
+}
 
-export default Ticket;
+export default Ticket

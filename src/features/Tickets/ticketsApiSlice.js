@@ -74,7 +74,7 @@ const selectTicketsData = createSelector(
 	ticketsResult => ticketsResult.data //data is normalized state object with ids and entities
 )
 
-//getSelectors creates these slectors
+//getSelectors creates these selectors
 export const {
 	selectAll: selectAllTickets,
 	selectById: selectTicketById,

@@ -1,42 +1,45 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import {
 	useUpdateTicketMutation,
 	useDeleteTicketMutation,
-} from './ticketsApiSlice';
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+} from './ticketsApiSlice'
+import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import useAuth from '../../hooks/useAuth'
 
 const EditTicketForm = ({ ticket, users }) => {
+	const { isManager, isAdmin } = useAuth()
+	console.log(users)
 	const [updateTicket, { isLoading, isSuccess, isError, error }] =
-		useUpdateTicketMutation();
+		useUpdateTicketMutation()
 	const [
 		deleteTicket,
 		{ isSuccess: isDelSuccess, isError: isDelError, error: delError },
-	] = useDeleteTicketMutation();
-	const navigate = useNavigate();
+	] = useDeleteTicketMutation()
+	const navigate = useNavigate()
 
-	const [title, setTitle] = useState(ticket.title);
-	const [text, setText] = useState(ticket.text);
-	const [completed, setCompleted] = useState(ticket.completed);
-	const [userId, setUserId] = useState(ticket.user);
+	const [title, setTitle] = useState(ticket.title)
+	const [text, setText] = useState(ticket.text)
+	const [completed, setCompleted] = useState(ticket.completed)
+	const [userId, setUserId] = useState(ticket.user)
 
 	useEffect(() => {
 		if (isSuccess || isDelSuccess) {
-			setTitle('');
-			setText('');
-			setUserId('');
-			navigate('/dash/tickets');
+			setTitle('')
+			setText('')
+			setUserId('')
+			navigate('/dash/tickets')
 		}
-	}, [isSuccess, isDelSuccess, navigate]);
-	const onTitleChanged = (e) => setTitle(e.target.value);
-	const onTextChanged = (e) => setText(e.target.value);
-	const onCompletedChanged = (e) => setCompleted(e.target.checked);
-	const onUserIdChanged = (e) => setUserId(e.target.value);
+	}, [isSuccess, isDelSuccess, navigate])
+	const onTitleChanged = e => setTitle(e.target.value)
+	const onTextChanged = e => setText(e.target.value)
+	const onCompletedChanged = e => setCompleted(e.target.checked)
+	const onUserIdChanged = e => setUserId(e.target.value)
 
-	const canSave = [title, text, userId].every(Boolean) && !isLoading;
+	const canSave = [title, text, userId].every(Boolean) && !isLoading
 
-	const onSaveTicketClicked = async (e) => {
+	const onSaveTicketClicked = async e => {
 		if (canSave) {
 			await updateTicket({
 				id: ticket.id,
@@ -44,13 +47,13 @@ const EditTicketForm = ({ ticket, users }) => {
 				title,
 				text,
 				completed,
-			});
+			})
 		}
-	};
+	}
 
 	const onDeleteTicketClicked = async () => {
-		await deleteTicket({ id: ticket.id });
-	};
+		await deleteTicket({ id: ticket.id })
+	}
 
 	const created = new Date(ticket.createdAt).toLocaleString('en-US', {
 		day: 'numeric',
@@ -59,7 +62,7 @@ const EditTicketForm = ({ ticket, users }) => {
 		hour: 'numeric',
 		minute: 'numeric',
 		second: 'numeric',
-	});
+	})
 
 	const updated = new Date(ticket.updatedAt).toLocaleString('en-US', {
 		day: 'numeric',
@@ -68,24 +71,26 @@ const EditTicketForm = ({ ticket, users }) => {
 		hour: 'numeric',
 		minute: 'numeric',
 		second: 'numeric',
-	});
-	const options = users.map((user) => {
+	})
+	const options = users?.map(user => {
 		return (
 			<option key={user.id} value={user.id}>
+				{' '}
 				{user.username}
 			</option>
-		);
-	});
-	const errClass = isError || isDelError ? 'errmsg' : 'offscreen';
-	const validTitleClass = !title ? 'form__input--incomplete' : '';
-	const validTextClass = !text ? 'form__input--incomplete' : '';
+		)
+	})
 
-	const errContent = (error?.data?.message || delError?.data?.message) ?? '';
+	const errClass = isError || isDelError ? 'errmsg' : 'offscreen'
+	const validTitleClass = !title ? 'form__input--incomplete' : ''
+	const validTextClass = !text ? 'form__input--incomplete' : ''
+
+	const errContent = (error?.data?.message || delError?.data?.message) ?? ''
 
 	const content = (
 		<>
 			<p className={errClass}>{errContent}</p>
-			<form className='form' onSubmit={(e) => e.preventDefault()}>
+			<form className='form' onSubmit={e => e.preventDefault()}>
 				<div className='form__title-row'>
 					<h2>Edit Ticket #{ticket.ticket}</h2>
 					<div className='form__action-buttons'>
@@ -178,7 +183,7 @@ const EditTicketForm = ({ ticket, users }) => {
 				</div>
 			</form>
 		</>
-	);
-	return content;
-};
-export default EditTicketForm;
+	)
+	return content
+}
+export default EditTicketForm

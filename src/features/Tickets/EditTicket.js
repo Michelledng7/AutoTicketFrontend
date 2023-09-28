@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+//import { useSelector } from 'react-redux'
 import { useGetTicketsQuery } from './ticketsApiSlice'
 import { useGetUsersQuery } from '../users/usersApiSlice'
 // import { selectTicketById } from './ticketsApiSlice';

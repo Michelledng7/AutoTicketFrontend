@@ -31,7 +31,6 @@ const TicketList = () => {
 				ticketId => entities[ticketId].username === username
 			)
 		}
-
 		console.log(filteredIds)
 
 		const tableContent =
@@ -43,7 +42,7 @@ const TicketList = () => {
 				<thead className='table__thead'>
 					<tr>
 						<th scope='col' className='table__th ticket__status'>
-							UserName
+							Ticket Status
 						</th>
 						<th scope='col' className='table__th ticket__created'>
 							Created
