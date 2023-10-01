@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import { useGetTicketsQuery } from './ticketsApiSlice'
+import { useGetUsersQuery } from '../users/usersApiSlice'
 
 import { useSelector } from 'react-redux'
 import { selectTicketById } from './ticketsApiSlice'
@@ -13,8 +14,16 @@ const Ticket = ({ ticketId }) => {
 			ticket: data.entities[ticketId],
 		}),
 	})
+
+	const { user } = useGetUsersQuery('userList', {
+		selectFromResult: ({ data }) => ({
+			user: data?.ids.map(id => data?.entities[id]),
+		}),
+	})
+	console.log(user)
 	console.log(ticketId)
 	console.log(ticket)
+
 	const navigate = useNavigate()
 	if (ticket) {
 		const created = new Date(ticket.createdAt).toLocaleString('en-US', {
@@ -38,7 +47,7 @@ const Ticket = ({ ticketId }) => {
 				<td className='table__cell ticket__created'>{created}</td>
 				<td className='table__cell ticket__updated'>{updated}</td>
 				<td className='table__cell'>{ticket.title}</td>
-				<td className='table__cell ticket__username'>{ticket.username}</td>
+				<td className='table__cell ticket__username'>{user.username}</td>
 
 				<td className='table__cell'>
 					<button onClick={handleEdit}>
