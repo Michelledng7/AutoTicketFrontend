@@ -14,8 +14,10 @@ import NewTicket from './features/Tickets/NewTicket'
 import Persistlogin from './features/auth/Persistlogin'
 import RequiredAuth from './features/auth/RequiredAuth'
 import { ROLES } from './config/roles'
+import useTitle from './hooks/useTitle'
 
 function App() {
+	useTitle('Sportsman Order Tickets')
 	return (
 		<Routes>
 			<Route path='/' element={<Layout />}>
