@@ -3,8 +3,10 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import { useGetTicketsQuery } from './ticketsApiSlice'
 import { useGetUsersQuery } from '../users/usersApiSlice'
+import useAuth from '../../hooks/useAuth'
 
 const Ticket = ({ ticketId }) => {
+	const { username, isManager, isAdmin } = useAuth()
 	//const ticket = useSelector(state => selectTicketById(state, ticketId))
 	const { ticket } = useGetTicketsQuery('ticketList', {
 		selectFromResult: ({ data }) => ({
@@ -12,15 +14,17 @@ const Ticket = ({ ticketId }) => {
 		}),
 	})
 
+	console.log(ticket)
+	console.log(ticketId)
+
 	const { user } = useGetUsersQuery('userList', {
 		selectFromResult: ({ data }) => ({
-			//user: data?.ids.map(id => data?.entities[id]),
 			user: data?.entities[ticket?.user],
 		}),
 	})
 	console.log(user)
-	console.log(ticketId)
-	console.log(ticket)
+	//const fileteredUser = users?.filter(user => user.id === ticket?.user)
+	//console.log(fileteredUser)
 
 	const navigate = useNavigate()
 	if (ticket) {

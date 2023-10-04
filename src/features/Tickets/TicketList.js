@@ -1,5 +1,6 @@
 import { useGetTicketsQuery } from './ticketsApiSlice'
 import Ticket from './Ticket'
+import { useGetUsersQuery } from '../users/usersApiSlice'
 import useAuth from '../../hooks/useAuth'
 
 const TicketList = () => {
@@ -15,6 +16,21 @@ const TicketList = () => {
 		refetchOnFocus: true,
 		refetchOnMountOrArgChange: true,
 	})
+
+	const { users } = useGetUsersQuery('userList', {
+		selectFromResult: ({ data }) => ({
+			//user: data?.ids.map(id => data?.entities[id]),
+			users: data?.ids.map(id => data.entities[id]),
+		}),
+	})
+
+	console.log(users)
+	console.log(users.map(user => user.username))
+
+	const filteredUsers = users.filter(user => user.username === username)
+	console.log(filteredUsers)
+	console.log(filteredUsers[0].username)
+
 	let content
 	if (isSuccess) {
 		const { ids, entities } = tickets
@@ -26,16 +42,24 @@ const TicketList = () => {
 			filteredIds = [...ids]
 			console.log(filteredIds)
 		} else {
-			//console.log(ids.map(ticketId => entities[ticketId].user))
 			filteredIds = ids.filter(
-				ticketId => entities[ticketId].username === username
+				item => entities[item].user === filteredUsers[0]._id
 			)
+			//console.log(ids.map(ticketId => entities[ticketId].user))
+			// filteredIds = ids.filter(
+			// 	ticketId => entities[ticketId].user === username
+			// const userIds = ids.map(ticketId => entities[ticketId].user)
+			// console.log(userIds)
+			// filteredIds = userIds.map(id => id.username)
+			console.log(filteredIds)
 		}
 		console.log(filteredIds)
 
 		const tableContent =
 			ids?.length &&
-			filteredIds.map(ticketId => <Ticket key={ticketId} ticketId={ticketId} />)
+			filteredIds?.map(ticketId => (
+				<Ticket key={ticketId} ticketId={ticketId} />
+			))
 
 		content = (
 			<table className='table table--tickets'>
