@@ -4,9 +4,6 @@ import { useNavigate } from 'react-router-dom'
 import { useGetTicketsQuery } from './ticketsApiSlice'
 import { useGetUsersQuery } from '../users/usersApiSlice'
 
-import { useSelector } from 'react-redux'
-import { selectTicketById } from './ticketsApiSlice'
-
 const Ticket = ({ ticketId }) => {
 	//const ticket = useSelector(state => selectTicketById(state, ticketId))
 	const { ticket } = useGetTicketsQuery('ticketList', {
@@ -17,7 +14,8 @@ const Ticket = ({ ticketId }) => {
 
 	const { user } = useGetUsersQuery('userList', {
 		selectFromResult: ({ data }) => ({
-			user: data?.ids.map(id => data?.entities[id]),
+			//user: data?.ids.map(id => data?.entities[id]),
+			user: data?.entities[ticket?.user],
 		}),
 	})
 	console.log(user)
