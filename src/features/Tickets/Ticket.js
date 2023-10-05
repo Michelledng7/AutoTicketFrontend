@@ -3,10 +3,8 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router-dom'
 import { useGetTicketsQuery } from './ticketsApiSlice'
 import { useGetUsersQuery } from '../users/usersApiSlice'
-import useAuth from '../../hooks/useAuth'
 
 const Ticket = ({ ticketId }) => {
-	const { username, isManager, isAdmin } = useAuth()
 	//const ticket = useSelector(state => selectTicketById(state, ticketId))
 	const { ticket } = useGetTicketsQuery('ticketList', {
 		selectFromResult: ({ data }) => ({

@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 const MainPage = () => {
 	const content = (
-		<section>
+		<section className='public'>
 			<header>
 				<h1>
 					Welcome to <span>Sportsman</span>
@@ -11,20 +11,25 @@ const MainPage = () => {
 
 			<main className='public_main'>
 				<p>
-					Reach out to your friends and family and share your favorite sports
-					moments with them.
+					Sportsman friendly staff is ready to serve your friends and family and
+					share our favorite sports moments with you.
 				</p>
-				<address>
-					online services 24/7
-					<a href='Tel: +613 66666666'>(03) 6666-6666 </a>
+				<br></br>
+				<address className='public_addr'>
+					online services 24/7 https://sportsman.render.com
+					<p>
+						Tel <a href='Tel: +613 66666666'>(03) 6666-6666 </a>
+					</p>
 				</address>
 				<br />
 			</main>
-			<footer></footer>
+			<footer className='dash-footer'>
+				<Link to='/login'>Login</Link>
+			</footer>
 		</section>
-	);
+	)
 
-	return content;
-};
+	return content
+}
 
-export default MainPage;
+export default MainPage

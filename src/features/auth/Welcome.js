@@ -1,13 +1,15 @@
-import { Link } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
+import { Link } from 'react-router-dom'
+import useAuth from '../../hooks/useAuth'
+import useTitle from '../../hooks/useTitle'
 
 const Welcome = () => {
-	const { username, isAdmin, isManager } = useAuth();
-	const date = new Date();
+	const { username, isAdmin, isManager } = useAuth()
+	useTitle(`Order Tickets for ${username}`)
+	const date = new Date()
 	const today = new Intl.DateTimeFormat('en-US', {
 		dateStyle: 'full',
 		timeStyle: 'long',
-	}).format(date);
+	}).format(date)
 
 	const content = (
 		<section className='welcome'>
@@ -31,9 +33,9 @@ const Welcome = () => {
 				</p>
 			)}
 		</section>
-	);
+	)
 
-	return content;
-};
+	return content
+}
 
-export default Welcome;
+export default Welcome
